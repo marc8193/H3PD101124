@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1i4npkefihl1"]
+
+[ext_resource type="Script" path="res://hud.gd" id="1_afiyg"]
+[ext_resource type="FontFile" uid="uid://igj5sls57d7a" path="res://fonts/Xolonium-Regular.ttf" id="1_b6iym"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_afiyg")
+
+[node name="ScoreLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -22.5
+offset_top = 80.0
+offset_right = 22.5
+offset_bottom = 158.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_b6iym")
+theme_override_font_sizes/font_size = 64
+
+[node name="Message" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -186.0
+offset_top = -39.0
+offset_right = 186.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_b6iym")
+theme_override_font_sizes/font_size = 64
+
+[node name="StartButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -88.5
+offset_top = -190.0
+offset_right = 88.5
+offset_bottom = -104.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("1_b6iym")
+theme_override_font_sizes/font_size = 64
+text = "Start"
+
+[node name="MessageTimer" type="Timer" parent="."]
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
