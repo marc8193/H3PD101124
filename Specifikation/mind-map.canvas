@@ -1,0 +1,19 @@
+{
+	"nodes":[
+		{"id":"7be9d6ac05eb03f3","type":"text","text":"Point Of Sale - System","x":-125,"y":-30,"width":250,"height":60},
+		{"id":"dac2d264e43cc027","type":"text","text":"Product","x":320,"y":-30,"width":250,"height":60},
+		{"id":"14e5ffdfddaf7ec4","type":"text","text":"Name","x":740,"y":-140,"width":250,"height":60},
+		{"id":"2a1824f960e8ee47","type":"text","text":"Amount","x":740,"y":-30,"width":250,"height":60},
+		{"id":"907322134dc56238","type":"text","text":"Price","x":740,"y":80,"width":250,"height":60},
+		{"id":"68b82f553566a8b5","type":"text","text":"Interface","x":-125,"y":-240,"width":250,"height":60},
+		{"id":"84a3c913e94d9a9e","type":"text","text":"Graphical","x":-125,"y":-440,"width":250,"height":60}
+	],
+	"edges":[
+		{"id":"80b09a5b6cda025a","fromNode":"dac2d264e43cc027","fromSide":"right","toNode":"14e5ffdfddaf7ec4","toSide":"left"},
+		{"id":"f21822843679a4ff","fromNode":"dac2d264e43cc027","fromSide":"right","toNode":"2a1824f960e8ee47","toSide":"left"},
+		{"id":"9c275467d0df6e32","fromNode":"dac2d264e43cc027","fromSide":"right","toNode":"907322134dc56238","toSide":"left"},
+		{"id":"178ec2cc0df9df8e","fromNode":"7be9d6ac05eb03f3","fromSide":"right","toNode":"dac2d264e43cc027","toSide":"left"},
+		{"id":"4f95b0dc41ebdbd6","fromNode":"7be9d6ac05eb03f3","fromSide":"top","toNode":"68b82f553566a8b5","toSide":"bottom"},
+		{"id":"4737d752a4bb5a20","fromNode":"68b82f553566a8b5","fromSide":"top","toNode":"84a3c913e94d9a9e","toSide":"bottom"}
+	]
+}
