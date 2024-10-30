@@ -12,7 +12,6 @@ func _process(delta: float) -> void:
 	if $Player.collision_state == $Player.CollisionState.COLLIDED:
 		game_over()
 		$Player.collision_state = $Player.CollisionState.FREE
-		
 
 func game_over():
 	$ScoreTimer.stop()
@@ -48,7 +47,7 @@ func _on_mob_timer_timeout() -> void:
 	mob.rotation = direction
 
 	# Choose the velocity for the mob.
-	var velocity = Vector2(randf_range(150.0, 250.0), 0.0)
+	var velocity = Vector2(200.0, 0.0)
 	mob.linear_velocity = velocity.rotated(direction)
 
 	# Spawn the mob by adding it to the Main scene.
