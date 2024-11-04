@@ -63,7 +63,7 @@ print("{:=^80}".format(" Opgave 2.2 - Print ufærdige tasks og todos "))
 for incomplete_todo in Todo.select().where(Todo.is_complete == False):
     task = Task.select().where(Task.id == incomplete_todo.task).get()
     
-    print(f"Task: {task.name} -  Todo: {incomplete_todo.name}")
+    print(f"Task: {task.name} - Todo: {incomplete_todo.name}")
 
 print("{:=^80}".format(" Opgave 2.3 - Workers og teams "))
 
@@ -178,3 +178,46 @@ for teamworker in TeamWorker.select().where(TeamWorker.team == testere_team):
         teamworker.current_todo = testere_todo
         teamworker.save()
 
+print("{:=^80}".format(" Opgave 2.5 - metoden PrintTeamsWithoutTasks() "))
+
+print("Creating team - Without task")
+without_task_team = Team.create(name="Without task")
+without_task_team.save()
+
+anne_dam_teamworker_without_task = TeamWorker.create(team=without_task_team.id, worker=anne_dam_worker.id)
+anne_dam_teamworker_without_task.save()
+
+for teamworker in TeamWorker.select().where(TeamWorker.current_task == None):
+    for team in Team.select().where(Team.id == teamworker.team):
+        print(f"Team: {team.name}")
+
+print("{:=^80}".format(" Opgave 2.6 - metoden PrintTeamCurrentTask() "))
+
+for teamworker in TeamWorker.select():
+    team = Team.select().where(Team.id == teamworker.team).get()
+    
+    task = None
+    if teamworker.current_task: task = Task.select().where(Task.id == teamworker.current_task).get()
+    
+    try: print(f"Team: {team.name} - Task: {task.name}")
+    except AttributeError: print(f"Team: {team.name} - Task: None")
+   
+print("{:=^80}".format(" Opgave 2.7 - metoden PrintTeamProgress() "))
+
+for team in Team.select():
+    todos = []
+
+    for teamworker in TeamWorker.select().where(TeamWorker.team == team.id):
+        todo = None
+        if teamworker.current_task: 
+            todo = Todo.select().where(Todo.id == teamworker.current_task).get()
+            todos.append(todo)
+
+    done_todos = 0
+    for todo in todos: 
+        if todo.is_complete == True: done_todos += 1
+
+    print(f"Team: {team.name} - {done_todos} out of {len(todos)} todos is done")
+
+        
+     
