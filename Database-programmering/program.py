@@ -219,5 +219,3 @@ for team in Team.select():
 
     print(f"Team: {team.name} - {done_todos} out of {len(todos)} todos is done")
 
-        
-     

@@ -50,7 +50,7 @@ class TeamWorker(Model):
     
     team = ForeignKeyField(Team, backref="teams")
     worker = ForeignKeyField(Worker, backref="workers")
-    current_todo = ForeignKeyField(Todo, backref="current_task", null=True)
+    current_todo = ForeignKeyField(Todo, backref="current_todo", null=True)
     current_task = ForeignKeyField(Task, backref="current_task", null=True)
     
     class Meta:
