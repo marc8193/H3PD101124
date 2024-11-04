@@ -216,6 +216,8 @@ for team in Team.select():
     done_todos = 0
     for todo in todos: 
         if todo.is_complete == True: done_todos += 1
-
-    print(f"Team: {team.name} - {done_todos} out of {len(todos)} todos is done")
+        
+    
+    try: print(f"Team: {team.name} - {done_todos} out of {len(todos)} todos is done ({100/len(todos)*done_todos}%)")
+    except ZeroDivisionError: print(f"Team: {team.name} - No todos")
 
