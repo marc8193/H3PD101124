@@ -20,32 +20,23 @@ class Node():
     def count(self):
         i = 0
         current = self.head
-        
-        try:
-            while True:
-                if current.next: 
-                    i += 1
-
-                current = self.next
-        except AttributeError:
-            pass
+    
+        while current.next:
+            current = current.next
+            i += 1
 
         return i + 1
-
+    
     def toString(self):
         current = self.head
         i = str(current.data) + " "
-        
-        try:
-            while True:
-                if current.next: 
-                    i += str(current.next.data) + " "
+    
+        while current.next:
+            current = current.next
+            i += str(current.data) + " "
 
-                current = self.next
-        except AttributeError:
-            return i.strip()
+        return i.strip()
 
-        return "";
 
     def sort(self):
         i = 0
@@ -54,21 +45,50 @@ class Node():
         current = self.head        
         SortedLinkedList = Node(current.data)
 
-        try:
-            while True:
-                if current.next.data > current.data:
-                    SortedLinkedList.insertAtBegin(current.next.data)
-                else:
-                    SortedLinkedList.next = Node(current.next.data)
-                
-                current = current.next
-                newListCount = SortedLinkedList.count()
+        while current.next:
+            if current.next.data > current.data:
+                SortedLinkedList.insertAtBegin(current.next.data)
+            else:
+                SortedLinkedList.next = Node(current.next.data)
+            
+            current = current.next
+            newListCount = SortedLinkedList.count()
 
-                if newListCount == oldListCount:
-                    return SortedLinkedList
+            if newListCount == oldListCount:
+                return SortedLinkedList
                       
-        except AttributeError:
-            return SortedLinkedList
+        return SortedLinkedList
+
+    def reverse(self):
+        current = self.head
+        newList = Node(current.data)
+    
+        while current.next:
+            current = current.next
+            newList.insertAtBegin(current.data)
+
+        return newList
+
+    def exist(self, this):
+        current = self.head
+        while current.next:
+            current = current.next
+            if(current.data == this):
+                return True
+
+        return False
+
+    def delete(self, this):
+        current = self.head
+        newList = Node(current.data)
+    
+        while current.next:
+            if current.data != this: newList.next = Node(current.data)
+
+            current = current.next
+
+        return newList
+
 
 class TestLinkedList(unittest.TestCase):
     def test_insertAtBegin(self):
@@ -112,11 +132,41 @@ class TestLinkedList(unittest.TestCase):
 
         linked_list.insertAtBegin(69)
         linked_list.insertAtBegin(45)
-        # sorted = linked_list.sort()
+        sorted = linked_list.sort()
 
-        tostringed = linked_list.toString()
+        tostringed = sorted.toString()
 
         self.assertEqual(tostringed,"69 45 10")
+
+    def test_reverse(self):
+        linked_list = Node(10)
+
+        linked_list.insertAtBegin(20)
+        linked_list.insertAtBegin(30)
+
+        reversed_list = linked_list.reverse()
+
+        self.assertEqual(reversed_list.head.data, 10)
+        self.assertEqual(reversed_list.head.next.data, 20)
+        self.assertEqual(reversed_list.head.next.next.data, 30)
+
+    def test_exist(self):
+        linked_list = Node(10)
+        linked_list.insertAtBegin(20)
+        linked_list.insertAtBegin(30)
+        
+        exist = linked_list.exist(20)
+        
+        self.assertEqual(exist, True)
+
+    def test_delete(self):
+        linked_list = Node(10)
+        linked_list.insertAtBegin(20)
+        linked_list.insertAtBegin(30)
+        
+        deleted = linked_list.delete(20)
+        
+        self.assertEqual(deleted.exist(20), False) 
 
 if __name__ == '__main__':
     unittest.main()
