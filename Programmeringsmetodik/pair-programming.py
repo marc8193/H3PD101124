@@ -38,7 +38,7 @@ class Node():
         return i.strip()
 
 
-    def sort(self):
+    def sort(self, desc):
         i = 0
         oldListCount = self.count()
 
@@ -46,10 +46,17 @@ class Node():
         SortedLinkedList = Node(current.data)
 
         while current.next:
-            if current.next.data > current.data:
-                SortedLinkedList.insertAtBegin(current.next.data)
+            if desc:
+                if current.next.data > current.data:
+                    SortedLinkedList.insertAtBegin(current.next.data)
+                else:
+                    SortedLinkedList.next = Node(current.next.data)
+
             else:
-                SortedLinkedList.next = Node(current.next.data)
+                if current.next.data < current.data:
+                    SortedLinkedList.insertAtBegin(current.next.data)
+                else:
+                    SortedLinkedList.next = Node(current.next.data)
             
             current = current.next
             newListCount = SortedLinkedList.count()
@@ -89,7 +96,6 @@ class Node():
 
         return newList
 
-
 class TestLinkedList(unittest.TestCase):
     def test_insertAtBegin(self):
         linked_list = Node(10)
@@ -127,16 +133,27 @@ class TestLinkedList(unittest.TestCase):
 
         self.assertEqual(tostringed, "42 69 10")
 
-    def test_sort(self):
+    def test_sort_desc(self):
         linked_list = Node(10)
 
         linked_list.insertAtBegin(69)
         linked_list.insertAtBegin(45)
-        sorted = linked_list.sort()
+        sorted = linked_list.sort(True)
 
         tostringed = sorted.toString()
 
         self.assertEqual(tostringed,"69 45 10")
+
+    def test_sort_asc(self):
+        linked_list = Node(10)
+
+        linked_list.insertAtBegin(69)
+        linked_list.insertAtBegin(45)
+        sorted = linked_list.sort(False)
+
+        tostringed = sorted.toString()
+
+        self.assertEqual(tostringed,"10 45 69")
 
     def test_reverse(self):
         linked_list = Node(10)
