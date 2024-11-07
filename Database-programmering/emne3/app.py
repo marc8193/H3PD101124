@@ -17,8 +17,11 @@ def get_todos():
     else:
         for todo in TodoItem.select().order_by(TodoItem.id):
             todos.append({ "id": todo.id, "name": todo.name, "is_complete": todo.is_complete })
+    
+    response = jsonify(todos)
+    response.headers.add('Access-Control-Allow-Origin', '*')
 
-    return jsonify(todos)
+    return response
 
 @app.post("/")
 def post_todo_item():
