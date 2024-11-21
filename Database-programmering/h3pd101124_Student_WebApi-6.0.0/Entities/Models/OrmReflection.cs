@@ -74,6 +74,35 @@ namespace Entities.Models
             return Result;
         }
 
+        public static int Delete<T>(this T obj, string tableName)
+        {
+            Type type = typeof(T);
+
+            PropertyInfo[] properties = type.GetProperties();
+
+            PropertyInfo primaryKey = properties.FirstOrDefault(p => p.GetCustomAttributes(typeof(KeyAttribute), true).Length > 0);
+            
+            string sql = $@"DELETE FROM {tableName} WHERE {primaryKey.Name} = @p0;";
+
+            Console.WriteLine(sql);
+
+            OpenDatabaseConnection();
+            SqlCommand dbCommand = new SqlCommand(sql, DatabaseConnection);
+
+            dbCommand.Parameters.AddWithValue("@p0", primaryKey.GetValue(obj));
+
+            int Result = dbCommand.ExecuteNonQuery();
+            if (Result < 0)
+            {
+                Console.WriteLine("Failed while executing query!");
+                return 1;
+            }
+
+            CloseDatabaseConnection();
+
+            return 0;
+        }
+
         private static void OpenDatabaseConnection()
         {
             if (null == DatabaseConnection)
