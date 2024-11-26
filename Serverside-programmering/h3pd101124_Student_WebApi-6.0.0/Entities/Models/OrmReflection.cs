@@ -74,7 +74,7 @@ namespace Entities.Models
             return Result;
         }
 
-        public static int Delete<T>(this T obj, string tableName)
+        public static int DeleteObjectFromDatabase<T>(this T obj, string tableName)
         {
             Type type = typeof(T);
 

@@ -51,5 +51,29 @@ namespace Student_WebApi_ADO_NET.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, $"Internal server error : {Error.ToString()}");
             }
         }
+
+		// DELETE: api/Student/5
+        [HttpDelete("DeleteStudent_ADO_Net/{StudentID}")]
+        public async Task<IActionResult> DeleteStudent_ADO_Net(int StudentID,
+                                                               string UserName = "No Name")
+        {
+            try
+            {
+                Student Student_Object = new Student();
+                Student_Object.StudentID = StudentID;
+
+                int result = Student_Object.DeleteObjectFromDatabase<Student>(Student.TABLE_NAME);
+
+                this._logger.LogInfo($"Student with ID {StudentID} has been deleted in action DeleteStudent_ADO_Net by {UserName}");
+                return Ok($"Student with ID {StudentID} has been deleted in action DeleteStudent_ADO_Net by {UserName}");
+
+            }
+            catch (Exception Error)
+            {
+                _logger.LogError($"Something went wrong inside DeleteStudent_ADO_Net action for {UserName}: {Error.Message}");
+                return StatusCode((int)HttpStatusCode.InternalServerError, $"Internal server error : {Error.ToString()}");
+            }
+        }
+
     }
 }
