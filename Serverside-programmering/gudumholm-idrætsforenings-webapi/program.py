@@ -15,12 +15,12 @@ def get_sports():
         if id:
                 sport = Sport.select().where(Sport.id == id).get()
                 sports.append({ "id": sport.id, "name": sport.name, "price": sport.price })
-            
+
         else:
             for sport in Sport.select().order_by(Sport.id):
                 sports.append({ "id": sport.id, "name": sport.name, "price": sport.price })
 
-    except DoesNotExist: pass
+    except DoesNotExist: return { "error": "Does not exist" }, 422
     
     response = jsonify(sports)
     
@@ -38,13 +38,13 @@ def get_addresses():
                 address = Address.select().where(Address.id == id).get()
                 addresses.append({ "id": address.id, "road": address.road, 
                                   "city": address.city, "zipcode": address.zipcode })
-            
+
         else:
             for address in Address.select().order_by(Address.id):
                 addresses.append({ "id": address.id, "road": address.road, 
                                   "city": address.city, "zipcode": address.zipcode })
 
-    except DoesNotExist: pass
+    except DoesNotExist: return { "error": "Does not exist" }, 422
     
     response = jsonify(addresses)
     
@@ -63,13 +63,14 @@ def get_members():
                 members.append({ "id": member.id, "name": member.name, 
                                 "CPR": member.CPR, "membership": member.membership, 
                                 "sporId": member.sport.id, "addressId": member.address.id })
-           
+        
         else:
             for member in Member.select().order_by(Member.id):
                 members.append({ "id": member.id, "name": member.name, 
                                 "CPR": member.CPR, "membership": member.membership, 
                                 "sporId": member.sport.id, "addressId": member.address.id })
-    except DoesNotExist: pass
+    
+    except DoesNotExist: return { "error": "Does not exist" }, 422
     
     response = jsonify(members)
     
@@ -86,12 +87,12 @@ def get_kids():
         if id:
                 kid = Kid.select().where(Kid.id == id).get()
                 kids.append({ "memberId": kid.member.id, "parentId": kid.parent.id })
-           
+
         else:
             for kid in Kid.select().order_by(Kid.id):
                 kids.append({ "memberId": kid.member.id, "parentId": kid.parent.id })
                 
-    except DoesNotExist: pass
+    except DoesNotExist: return { "error": "Does not exist" }, 422
     
     response = jsonify(kids)
     
