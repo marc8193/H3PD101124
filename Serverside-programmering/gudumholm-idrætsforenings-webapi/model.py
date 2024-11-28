@@ -31,7 +31,6 @@ class Member(Model):
     class Meta:
         database = db
 
-
 class Kid(Model):
     
     member = ForeignKeyField(Member, backref="kid_member")
