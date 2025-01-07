@@ -42,3 +42,10 @@ fun Counter(modifier: Modifier) {
 
     }
 }
+
+@Preview
+@Composable
+fun CounterPreview() {
+    Counter(modifier = Modifier)
+
+}
